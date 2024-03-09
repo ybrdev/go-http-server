@@ -1,3 +1,3 @@
-module go-docker
+module go-http-server
 
-go 1.15
+go 1.22

@@ -3,39 +3,28 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
 )
 
 func main() {
-    port := os.Getenv("PORT")
-    if port == "" {
-        log.Fatal("PORT env is required")
-    }
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" {
+			http.Error(w, "http method not allowed", http.StatusBadRequest)
+			return
+		}
 
-    instanceID := os.Getenv("INSTANCE_ID")
+		text := "Go Basic HTTP Server"
 
-    mux := http.NewServeMux()
-    mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        if r.Method != "GET" {
-            http.Error(w, "http method not allowed", http.StatusBadRequest)
-            return
-        }
+		w.Write([]byte(text))
+	})
 
-        text := "hello world"
-        if instanceID != "" {
-            text = text + ". from " + instanceID
-        }
+	server := new(http.Server)
+	server.Handler = mux
+	server.Addr = "0.0.0.0:80"
 
-        w.Write([]byte(text))
-    })
-    
-    server := new(http.Server)
-    server.Handler = mux
-    server.Addr = "0.0.0.0:" + port
-
-    log.Println("server starting at", server.Addr)
-    err := server.ListenAndServe()
-    if err != nil {
-        log.Fatal(err.Error())
-    }
+	log.Println("Server starting at", server.Addr)
+	err := server.ListenAndServe()
+	if err != nil {
+		log.Fatal(err.Error())
+	}
 }

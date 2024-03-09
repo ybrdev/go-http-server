@@ -1,6 +1,6 @@
 # Go Docker
 
-Belajar Docker dengan Go
+Belajar membuat HTTP Server dengan Go
 
 ## Prerequisites
 
@@ -10,13 +10,13 @@ Belajar Docker dengan Go
 ## Installation
 
 ```bash
-git clone git@github.com:yusufbadurohman/go-docker.git go-docker
-cd go-docker
-docker build . -t go-docker
+git clone git@github.com:yusufbadurohman/go-http-server.git go-http-server
+cd go-http-server
+docker build . -t go-http-server
 ```
 
 ## How to run
 
 ```bash
-docker run -it -e PORT=8083 -e INSTANCE_ID="Belajar docker" -p 8083:8083 go-docker
+docker run -d -p 80:80 --name go-http-server-1 go-http-server
 ```
