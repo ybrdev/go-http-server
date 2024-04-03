@@ -20,10 +20,10 @@ func main() {
 
 	server := new(http.Server)
 	server.Handler = mux
-	server.Addr = "0.0.0.0:80"
+	server.Addr = "0.0.0.0:443"
 
 	log.Println("Server starting at", server.Addr)
-	err := server.ListenAndServe()
+	err := server.ListenAndServeTLS("server.crt", "server.key")
 	if err != nil {
 		log.Fatal(err.Error())
 	}
