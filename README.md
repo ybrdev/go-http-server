@@ -18,5 +18,5 @@ docker build . -t go-http-server
 ## How to run
 
 ```bash
-docker run -d -p 80:80 --name go-http-server-1 go-http-server
+docker run -d -p 443:443 --name go-http-server-1 go-http-server
 ```
